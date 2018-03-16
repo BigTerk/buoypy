@@ -56,7 +56,8 @@ column headings.
 
 import pandas as pd
 import numpy as np
-import urllib2
+import urllib.request as urllib2
+#import urllib2
 from sqlalchemy import create_engine # database connection
 import datetime
 
@@ -479,6 +480,7 @@ class historic_data:
 		if not link:
 			base = 'http://www.ndbc.noaa.gov/view_text_file.php?filename='
 			link = base + str(self.buoy) + 'h' + str(self.year) + '.txt.gz&dir=data/historical/stdmet/'
+          #link = base + str(self.buoy) + 'h' + str(self.year) + '.txt.gz&dir=data/historical/stdmet/' 
 
 		#combine the first five date columns YY MM DD hh and make index
 		df = pd.read_csv(link,delim_whitespace=True,na_values=[99,999,9999,99.,999.,9999.])
@@ -581,7 +583,7 @@ class historic_data:
 
 			except:
 				print(str(month[ii]) + '2016' + ' not in records')
-				print link
+				print (link)
 
 
 		# start grabbing some data
@@ -590,7 +592,7 @@ class historic_data:
 		for L in links:
 
 			new_df = self.get_stand_meteo(link=L)
-			print 'Link : ' + L
+			print ('Link : ' + L)
 			df = df.append(new_df)
 
 		return df
